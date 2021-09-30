@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import { Button, Icon } from 'semantic-ui-react';
+import Result from './Result';
+import styled from 'styled-components';
 
 function App() {
+
+const [user, setUser] = useState(null)
+const [comp, setComp] = useState(null)
+const [score, setScore] = useState(0)
+
+const choices = ["rock", "paper", "scissors"]
+
+const getComp = () => {
+  let choice = choices[Math.floor(Math.random()*choices.length)]
+  setComp(choice);
+  console.log(comp)
+  console.log(user)
+}
+
+
+useEffect(()=> {
+  getComp()
+}, [user])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Rock Paper Scissors</p>
+      <Icon name="hand rock" size="large" onClick={()=>setUser("rock")} />
+      <Icon name="hand paper" size="large" onClick={()=>setUser("paper")} />
+      <Icon name="hand scissors" size="large" onClick={()=>setUser("scissors")} />
+      <p>Your Choice:{user}</p>
+      <p>Against: {comp}</p>
+      <Result comp={comp} user={user} setUser={setUser}/>
     </div>
   );
 }
 
 export default App;
+
